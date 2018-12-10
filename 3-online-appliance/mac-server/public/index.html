@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Control your LED!</title>
+    <style media="screen">
+      body {
+        font-family: Arial;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      button {
+        font-size: 0.8em;
+        padding: 10px 15px;
+      }
+
+      .container {
+        font-size: 1em;
+        left: 50%;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #state {
+        background-color: #FFFF00;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="control">
+        <h2>Control your LED!</h3>
+        <button id="button">ON</button>
+      </div>
+      <br><br>
+      <div class="monitor">
+        <h2>Room brightness check</h3>
+        <p id="state">BRIGHT</p>
+      </div>
+      <br><br>
+      <div class="scheduler">
+        <h2>Schedule time to turn light on</h2>
+        <form class="" action="/scheduler" method="POST">
+          <input type="text" name="hour" placeholder="Hour">
+          <input type="text" name="minute" placeholder="Minute">
+          <br>
+          <br>
+          <button type="submit" name="button" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <script src="toggle.js"></script>
+  </body>
+</html>
