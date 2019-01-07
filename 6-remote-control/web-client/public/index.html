@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Quest 6</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h2>Remote control your car!</h2>
+    <button type="button" name="Left" id="left">Left</button>
+    <button type="button" name="Right" id="right">Right</button>
+    <button type="button" name="Forward" id="forward">Forward</button>
+    <button type="button" name="Backward" id="backward">Backward</button>
+    <br><br>
+    <iframe src="http://192.168.1.134:8081/" width="640" height="480" id="cam">Your browser does not support iframe.</iframe>
+    <br><br>
+    <h2>Encoded message: </h2>
+    <h2 id="msg"></h2>
+    <script type="text/javascript">
+      var esp_ip = 'http://remotecontrol.ddns.net:1111/';
+      var left = $('#left');
+      var right = $('#right');
+      var forward = $('#forward');
+      var backward = $('#backward');
+
+      forward.bind('click', () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", esp_ip, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            direction: '0'
+        }));
+      })
+      right.bind('click', () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", esp_ip, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            direction: '1'
+        }));
+      })
+      backward.bind('click', () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", esp_ip, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            direction: '2'
+        }));
+      })
+      left.bind('click', () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", esp_ip, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            direction: '3'
+        }));
+      })
+
+      function getEncoded() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", esp_ip+'encoded', true);
+        xhr.onload = () => {
+          var resp = JSON.parse(xhr.response).msg;
+          console.log( resp);
+          $('#msg').html(resp);
+        }
+        xhr.send();
+      }
+
+      setInterval(getEncoded, 1000);
+
+    </script>
+  </body>
+</html>
